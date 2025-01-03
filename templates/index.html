@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending Topics</title>
+    <script>
+        function fetchTrends() {
+            fetch('/run-script')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('trends').innerHTML = `
+                        <h2>Trending Topics as of ${data.time}</h2>
+                        <ul>
+                            <li>${data.trends[0]}</li>
+                            <li>${data.trends[1]}</li>
+                            <li>${data.trends[2]}</li>
+                            <li>${data.trends[3]}</li>
+                            <li>${data.trends[4]}</li>
+                        </ul>
+                        <p>The IP address used for this query was: ${data.ip}</p>
+                    `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Click here to run the script and fetch trending topics</h1>
+    <button onclick="fetchTrends()">Run Script</button>
+    <div id="trends"></div>
+</body>
+</html>
